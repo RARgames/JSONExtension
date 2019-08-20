@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONExtension", "JSONExtension.csproj", "{98351D21-66D1-447C-B536-54FA90EB01D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98351D21-66D1-447C-B536-54FA90EB01D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98351D21-66D1-447C-B536-54FA90EB01D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98351D21-66D1-447C-B536-54FA90EB01D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98351D21-66D1-447C-B536-54FA90EB01D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {761644EB-B66D-4B68-852B-9AC6ABC5BDE2}
+	EndGlobalSection
+EndGlobal
