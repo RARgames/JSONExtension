@@ -99,7 +99,13 @@ namespace JSONExtension
 
             if (!isLoaded)
             {
-                string path = Path.Combine(Settings.GetProjectPath(), ".JSONExtensionSettings");
+                string projectPath = JSONExtensionPackage.settings.projectPath;
+                if (string.IsNullOrEmpty(projectPath))
+                {
+                    VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Wrong path to JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                    return;
+                }
+                string path = Path.Combine(projectPath, ".JSONExtensionSettings");
                 if (File.Exists(path))
                 {
                     string json = File.ReadAllText(path);
@@ -135,7 +141,7 @@ namespace JSONExtension
                 var selection = (TextSelection)dte.ActiveDocument.Selection;
                 text = selection.Text;
             }
-            if (langFile[text] != null)// "DialogPort.cs-Ethan-BadInput"
+            if (langFile.ContainsKey(text))
             {
                 VsShellUtilities.ShowMessageBox(this.package, langFile[text], text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
             }

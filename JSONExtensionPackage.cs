@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace JSONExtension
@@ -26,12 +27,15 @@ namespace JSONExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(JSONExtensionPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)] //call InitializeAsync on Solution Start 
     public sealed class JSONExtensionPackage : AsyncPackage
     {
         /// <summary>
         /// JSONExtensionPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "dbcfe764-c3c5-4440-b61e-7785bc59b41b";
+
+        public static Settings settings = new Settings();
 
         #region Package Members
 
@@ -49,6 +53,7 @@ namespace JSONExtension
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await OpenSettings.InitializeAsync(this);
             await EditDialog.InitializeAsync(this);
+            settings.Initialize();
         }
 
         #endregion

@@ -40,88 +40,97 @@ namespace JSONExtension
                 var line = triggerPoint.Value.GetContainingLine();
                 var lineSpan = _textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
                 var text = triggerPoint.Value.GetContainingLine().GetText();
-                //string textModified;
-                //try
-                //{
-                //    textModified = text.Split('"', '"')[1];
-                //}
-                //catch
-                //{
-                //    return Task.FromResult<QuickInfoItem>(null);
-                //}
-
-                //if (string.IsNullOrEmpty(textModified))
-                //    return Task.FromResult<QuickInfoItem>(null);
+                string textModified;  //TODO change name to fit what it is
+                var textArray = text.Split('"', '"');
+                if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1]))
+                {
+                    textModified = textArray[1];
+                }
+                else
+                {
+                    return Task.FromResult<QuickInfoItem>(null);
+                }
 
                 //searching string in JSON file
-                //if (!isLoaded)
-                //{
+                if (!isLoaded)
+                {
+                    string projectPath = JSONExtensionPackage.settings.projectPath;
+                    if (!string.IsNullOrEmpty(projectPath))
+                    {
+                        string path = Path.Combine(projectPath, ".JSONExtensionSettings");
 
-                //    //  JoinableTaskFactory.SwitchToMainThreadAsync();
-                //    string path = Path.Combine(Settings.GetProjectPath(), ".JSONExtensionSettings");
+                        if (File.Exists(path))
+                        {
+                            string json = File.ReadAllText(path);
+                            SettingsJSON settings = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using Setting to find the jsonPath parameter declared in the Settings class
+                            if (settings.jsonPath.EndsWith(".json"))
+                            {
+                                string temp = File.ReadAllText(settings.jsonPath);
 
-                //    if (File.Exists(path))
-                //    {
-                //        string json = File.ReadAllText(path);
-                //        SettingsJSON settings = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using Setting to find the jsonPath parameter declared in the Settings class
-                //        if (settings.jsonPath.EndsWith(".json"))
-                //        {
-                //            string temp = File.ReadAllText(settings.jsonPath);
+                                var data = (JObject)JsonConvert.DeserializeObject(temp);
+                                var langEN = data["en"].Value<JObject>().ToString();
+                                langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
 
+                                isLoaded = true;
+                            }
+                        }
+                    }
+                }
 
-                //            var data = (JObject)JsonConvert.DeserializeObject(temp);
-                //            var langEN = data["en"].Value<JObject>().ToString();
-                //            langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
+                string textl = textModified;
+                string value = string.Empty;
+                try
+                {
+                    if (langFile[textModified] != null)
+                    {
+                        // VsShellUtilities.ShowMessageBox(this.package, langFile[textl], textl, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                        value = langFile[textl];
+                    }
+                }
+                catch
+                {
+                    //TODO later show key not found - maybe allow to create key from it
+                    return Task.FromResult<QuickInfoItem>(null);
+                }
 
-                //            isLoaded = true;
-                //        }
-                //        else
-                //        {
-                //            //VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Wrong path to JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                //            //return;
-                //            //TODO change key/value to file not loaded
-                //        }
-                //    }
-                //    else
-                //    {
-                //        //VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Cannot find JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                //        //return;
-                //        //TODO change key/value to file not loaded
-                //    }
-                //}
-
-                // DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-                // string text = string.Empty;
+                //DTE dte = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(DTE)) as DTE;
+                //string textl = string.Empty;
                 //if (dte.ActiveDocument != null)
                 //{
                 //    var selection = (TextSelection)dte.ActiveDocument.Selection;
-                //    text = selection.Text;
+                //    textl = selection.Text;
                 //}
-                // string value = string.Empty;
+                //string value = string.Empty;
                 //try
                 //{
-                //    if (langFile[textModified] != null)// "DialogPort.cs-Ethan-BadInput"
+                //    if (langFile[textModified] != null)
                 //    {
-                //        // VsShellUtilities.ShowMessageBox(this.package, langFile[text], text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                //        value = langFile[text];
+                //        // VsShellUtilities.ShowMessageBox(this.package, langFile[textl], textl, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                //        value = langFile[textl];
                 //    }
                 //}
                 //catch
                 //{
                 //    return Task.FromResult<QuickInfoItem>(null);
                 //}
-                ////
 
 
-
-                var dataElm = new ContainerElement(
+                ContainerElement dataElm;
+                if (isLoaded)
+                {
+                    dataElm = new ContainerElement(
                     ContainerElementStyle.Stacked,
                     new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "Key: ")//+ textModified)
+                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "Key: " + textModified)
                     ),
                     new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "Value: ")//+ value)
+                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "Value: " + value)
                     ));
+                }
+                else
+                {
+                    dataElm = new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension not loaded: Add JSON Path in Tools/JSON Extension Settings - Set JSON Path")));
+                }
 
                 return Task.FromResult(new QuickInfoItem(lineSpan, dataElm));
             }

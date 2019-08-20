@@ -102,7 +102,7 @@ namespace JSONExtension
                 jsonPathSet = true;
             }
 
-            string projectPath = Settings.GetProjectPath();
+            string projectPath = JSONExtensionPackage.settings.projectPath;
 
             if (projectPath != null && jsonPathSet)
             {

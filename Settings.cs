@@ -10,11 +10,21 @@ namespace JSONExtension
 {
     public class Settings
     {
-        public static string GetProjectPath()
+        public string projectPath;
+
+        public void Initialize()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            projectPath = GetProjectPath();
+            VsShellUtilities.ShowMessageBox(ServiceProvider.GlobalProvider, projectPath, "TEMP", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+            //TODO seems to be working, remove if sure
+        }
+
+        private string GetProjectPath()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var solution = Package.GetGlobalService(typeof(SVsSolution)) as IVsSolution; // get solution reference from a service provider
+            IVsSolution solution = Package.GetGlobalService(typeof(SVsSolution)) as IVsSolution; // get solution reference from a service provider
             if (solution != null)
             {
                 solution.GetProperty((int)__VSPROPID.VSPROPID_IsSolutionOpen, out object open);
@@ -35,22 +45,12 @@ namespace JSONExtension
     }
 }
 
-//TODO after start check every frame if mouse is moving
-//TODO if not moving for 0.5s check what text is in cursor location and find it in json file
-//TODO if still not moving not check again
-//TODO if moving do nothing
-//TODO nie dziala quick async info
-//TODO nie dziala w pasku
-//TODO dodaj dokumentacje w readme:
+//TODO nie dziala w status bar
+//TODO nie dziala edit
+//TODO nie dziala wyswietlanie
 
-//To initialize MEF components, we’ll need to add a new Asset to source.extension.vsixmanifest.
-//<Assets>
-//  ...
-//  <Asset Type = "Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-//</Assets>
-//We will need to add several references to the project:
-//System.ComponentModel.Composition reference  for MEF, can be found in ‘Assemblies’.
-
-
+//TODO code/using cleaning
+//TODO add comments
+//TODO edit all error mesages to make clear JSON Extension
 
 
