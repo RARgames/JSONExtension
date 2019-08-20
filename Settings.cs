@@ -48,6 +48,7 @@ namespace JSONExtension
 //TODO nie dziala w status bar
 //TODO nie dziala edit
 //TODO nie dziala wyswietlanie
+//TODO allow to create a new key and value if not found
 
 //TODO code/using cleaning
 //TODO add comments

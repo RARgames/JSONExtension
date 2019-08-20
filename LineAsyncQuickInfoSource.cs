@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.Core.Imaging;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Language.StandardClassification;
-//using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
 using Newtonsoft.Json;
@@ -51,7 +50,6 @@ namespace JSONExtension
                     return Task.FromResult<QuickInfoItem>(null);
                 }
 
-                //searching string in JSON file
                 if (!isLoaded)
                 {
                     string projectPath = JSONExtensionPackage.settings.projectPath;
@@ -77,43 +75,15 @@ namespace JSONExtension
                     }
                 }
 
-                string textl = textModified;
-                string value = string.Empty;
-                try
+                string value;
+                if (langFile.ContainsKey(textModified))
                 {
-                    if (langFile[textModified] != null)
-                    {
-                        // VsShellUtilities.ShowMessageBox(this.package, langFile[textl], textl, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                        value = langFile[textl];
-                    }
+                    value = langFile[textModified];
                 }
-                catch
+                else
                 {
-                    //TODO later show key not found - maybe allow to create key from it
                     return Task.FromResult<QuickInfoItem>(null);
                 }
-
-                //DTE dte = Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(DTE)) as DTE;
-                //string textl = string.Empty;
-                //if (dte.ActiveDocument != null)
-                //{
-                //    var selection = (TextSelection)dte.ActiveDocument.Selection;
-                //    textl = selection.Text;
-                //}
-                //string value = string.Empty;
-                //try
-                //{
-                //    if (langFile[textModified] != null)
-                //    {
-                //        // VsShellUtilities.ShowMessageBox(this.package, langFile[textl], textl, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                //        value = langFile[textl];
-                //    }
-                //}
-                //catch
-                //{
-                //    return Task.FromResult<QuickInfoItem>(null);
-                //}
-
 
                 ContainerElement dataElm;
                 if (isLoaded)
