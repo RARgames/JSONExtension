@@ -39,3 +39,18 @@ namespace JSONExtension
 //TODO if not moving for 0.5s check what text is in cursor location and find it in json file
 //TODO if still not moving not check again
 //TODO if moving do nothing
+//TODO nie dziala quick async info
+//TODO nie dziala w pasku
+//TODO dodaj dokumentacje w readme:
+
+//To initialize MEF components, we’ll need to add a new Asset to source.extension.vsixmanifest.
+//<Assets>
+//  ...
+//  <Asset Type = "Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+//</Assets>
+//We will need to add several references to the project:
+//System.ComponentModel.Composition reference  for MEF, can be found in ‘Assemblies’.
+
+
+
+

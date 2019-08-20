@@ -15,5 +15,6 @@
   </Prerequisites>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" Path="JSONExtension.pkgdef" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" Path="JSONExtension.dll" />
   </Assets>
 </PackageManifest>
