@@ -84,8 +84,6 @@ namespace JSONExtension
             Instance = new EditDialog(package, commandService);
         }
 
-        private bool isLoaded = false;
-        private Dictionary<string, string> langFile;
         /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
@@ -97,54 +95,23 @@ namespace JSONExtension
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (!isLoaded)
-            {
-                string projectPath = JSONExtensionPackage.settings.projectPath;
-                if (string.IsNullOrEmpty(projectPath))
-                {
-                    VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Wrong path to JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                    return;
-                }
-                string path = Path.Combine(projectPath, ".JSONExtensionSettings");
-                if (File.Exists(path))
-                {
-                    string json = File.ReadAllText(path);
-                    SettingsJSON settings = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using Setting to find the jsonPath parameter declared in the Settings class
-                    if (settings.jsonPath.EndsWith(".json"))
-                    {
-                        string temp = File.ReadAllText(settings.jsonPath);
+            JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 
-
-                        var data = (JObject)JsonConvert.DeserializeObject(temp);
-                        var langEN = data["en"].Value<JObject>().ToString();
-                        langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
-
-                        isLoaded = true;
-                    }
-                    else
-                    {
-                        VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Wrong path to JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                        return;
-                    }
-                }
-                else
-                {
-                    VsShellUtilities.ShowMessageBox(this.package, "Make sure you set it using JSONExtension settings.", "Cannot find JSON file!", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                    return;
-                }
-            }
-
+            //TODO implement
             DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
             string text = string.Empty;
             if (dte.ActiveDocument != null)
             {
                 var selection = (TextSelection)dte.ActiveDocument.Selection;
                 text = selection.Text;
+                VsShellUtilities.ShowMessageBox(this.package, "", text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                                                                                                                                                                                      //}
             }
-            if (langFile.ContainsKey(text))
-            {
-                VsShellUtilities.ShowMessageBox(this.package, langFile[text], text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-            }
+            // if (langFile.ContainsKey(text))
+            //{
+            //   VsShellUtilities.ShowMessageBox(this.package, langFile[text], text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+            //}
+
         }
     }
 }

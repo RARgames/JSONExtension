@@ -1,28 +1,19 @@
-﻿using JSONExtension;
-using Microsoft.VisualStudio.Core.Imaging;
-using Microsoft.VisualStudio.Imaging;
-using Microsoft.VisualStudio.Language.Intellisense;
+﻿using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.Shell.Interop;
-using EnvDTE;
-using Microsoft.VisualStudio.Threading;
 
 namespace JSONExtension
 {
     internal sealed class LineAsyncQuickInfoSource : IAsyncQuickInfoSource
     {
         private ITextBuffer _textBuffer;
-        private bool isLoaded = false;
-        private Dictionary<string, string> langFile;
 
         public LineAsyncQuickInfoSource(ITextBuffer textBuffer)
         {
@@ -38,74 +29,52 @@ namespace JSONExtension
             {
                 var line = triggerPoint.Value.GetContainingLine();
                 var lineSpan = _textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
-                var text = triggerPoint.Value.GetContainingLine().GetText();
-                string textModified;  //TODO change name to fit what it is
+                var text = triggerPoint.Value.GetContainingLine().GetText(); //get whole line of current cursor pos
+
+                string key;
                 var textArray = text.Split('"', '"');
-                if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1]))
+                if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1])) //if there is char between "" set key to it
                 {
-                    textModified = textArray[1];
+                    key = textArray[1];
                 }
                 else
                 {
-                    return Task.FromResult<QuickInfoItem>(null);
+                    return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
 
-                if (!isLoaded)
-                {
-                    string projectPath = JSONExtensionPackage.settings.projectPath;
-                    if (!string.IsNullOrEmpty(projectPath))
-                    {
-                        string path = Path.Combine(projectPath, ".JSONExtensionSettings");
-
-                        if (File.Exists(path))
-                        {
-                            string json = File.ReadAllText(path);
-                            SettingsJSON settings = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using Setting to find the jsonPath parameter declared in the Settings class
-                            if (settings.jsonPath.EndsWith(".json"))
-                            {
-                                string temp = File.ReadAllText(settings.jsonPath);
-
-                                var data = (JObject)JsonConvert.DeserializeObject(temp);
-                                var langEN = data["en"].Value<JObject>().ToString();
-                                langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
-
-                                isLoaded = true;
-                            }
-                        }
-                    }
-                }
+                JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 
                 string value;
-                if (langFile.ContainsKey(textModified))
+                if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
-                    value = langFile[textModified];
+                    value = JSONExtensionPackage.settings.langFile[key];
                 }
                 else
                 {
-                    return Task.FromResult<QuickInfoItem>(null);
+                    return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
 
                 ContainerElement dataElm;
-                if (isLoaded)
+                if (JSONExtensionPackage.settings.isLoaded) //if langFile loaded show key/value from lang file
                 {
                     dataElm = new ContainerElement(
                     ContainerElementStyle.Stacked,
                     new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "Key: " + textModified)
+                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "Key:    " + key)
                     ),
                     new ClassifiedTextElement(
                         new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "Value: " + value)
                     ));
                 }
-                else
+                else //if not loaded show ERROR msg in Quick Info
                 {
-                    dataElm = new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension not loaded: Add JSON Path in Tools/JSON Extension Settings - Set JSON Path")));
+                    dataElm = new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension: Not Loaded! Add JSON Path in Tools/JSON Extension Settings - Set JSON Path")));
                 }
 
-                return Task.FromResult(new QuickInfoItem(lineSpan, dataElm));
+                return Task.FromResult(new QuickInfoItem(lineSpan, dataElm)); //add custom text from above to Quick Info
             }
 
-            return Task.FromResult<QuickInfoItem>(null);
+            return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
         }
         public void Dispose()
         {

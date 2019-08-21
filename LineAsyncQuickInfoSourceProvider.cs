@@ -11,10 +11,9 @@ namespace JSONExtension
     [Order]
     internal sealed class LineAsyncQuickInfoSourceProvider : IAsyncQuickInfoSourceProvider
     {
-        public IAsyncQuickInfoSource TryCreateQuickInfoSource(ITextBuffer textBuffer)
-        {
-            // This ensures only one instance per textbuffer is created
-            return textBuffer.Properties.GetOrCreateSingletonProperty(() => new LineAsyncQuickInfoSource(textBuffer));
+        public IAsyncQuickInfoSource TryCreateQuickInfoSource(ITextBuffer textBuffer) //creates instance of LineAsyncQuickInfoSource for displaying Quick Info
+        {  
+            return textBuffer.Properties.GetOrCreateSingletonProperty(() => new LineAsyncQuickInfoSource(textBuffer)); //this ensures only one instance per textbuffer is created
         }
     }
 }

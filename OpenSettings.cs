@@ -1,9 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Globalization;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -94,29 +91,29 @@ namespace JSONExtension
             ThreadHelper.ThrowIfNotOnUIThread();
 
             string jsonFilePath = string.Empty;
-            OpenFileDialog openFileDialog = new OpenFileDialog(); //Open file explorer
+            OpenFileDialog openFileDialog = new OpenFileDialog(); //open file explorer
             bool jsonPathSet = false;
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if OK clicked
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if OK clicked save path and set flag
             {
                 jsonFilePath = openFileDialog.FileName;
                 jsonPathSet = true;
             }
 
-            string projectPath = JSONExtensionPackage.settings.projectPath;
+            string projectPath = JSONExtensionPackage.settings.projectPath; //get project path from settings
 
-            if (projectPath != null && jsonPathSet)
+            if (projectPath != null && jsonPathSet) //if project path exists and jsonPathSet flag is true, save settingsJSON and show SUCCESS msg
             {
-                SettingsJSON settings = new SettingsJSON
+                SettingsJSON settingsJSON = new SettingsJSON
                 {
                     jsonPath = jsonFilePath
                 };
-                File.WriteAllText(Path.Combine(projectPath, ".JSONExtensionSettings"), JsonConvert.SerializeObject(settings));
+                File.WriteAllText(Path.Combine(projectPath, ".JSONExtensionSettings"), JsonConvert.SerializeObject(settingsJSON));
 
                 string title = "JSON Path set successfully";
                 string message = "JSON Path: " + jsonFilePath + "\nProject Path: " + projectPath;
                 VsShellUtilities.ShowMessageBox(this.package, message, title, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
             }
-            else
+            else //otherwise show ERROR msg
             {
                 string errorTitle = "Error selecting JSON file";
                 string errorMessage = "1. Open project for which you want to set JSON file.\n2. Select valid JSON path.";

@@ -53,7 +53,7 @@ namespace JSONExtension
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await OpenSettings.InitializeAsync(this);
             await EditDialog.InitializeAsync(this);
-            settings.Initialize();
+            settings.Initialize(); //initialize instance of settings for later use
         }
 
         #endregion
