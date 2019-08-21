@@ -41,9 +41,9 @@ namespace JSONExtension
                 {
                     return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
-
+#pragma warning disable
                 JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
-
+#pragma warning restore
                 string value;
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {

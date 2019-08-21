@@ -62,7 +62,9 @@ namespace JSONExtension
                         }
                         else if (verbose)
                         {
+#pragma warning disable
                             ShowMessageAndStopExecution("JSONExtension: JSON Path not valid!", "Make sure to set it using JSONExtension settings. The file should end with .json and all keys/values should be in en array.");
+#pragma warning restore
                         }
                     }
                     else if (verbose)
@@ -94,5 +96,3 @@ namespace JSONExtension
 //TODO implement showing key-value in status bar
 //TODO allow to create a new key and value if not found
 //TODO implement edit window
-
-//TODO fix 2 warnings
