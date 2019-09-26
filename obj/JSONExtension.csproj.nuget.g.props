@@ -20,5 +20,6 @@
     <PkgMicrosoft_VisualStudio_Threading_Analyzers Condition=" '$(PkgMicrosoft_VisualStudio_Threading_Analyzers)' == '' ">C:\Users\RAR\.nuget\packages\microsoft.visualstudio.threading.analyzers\15.8.168</PkgMicrosoft_VisualStudio_Threading_Analyzers>
     <PkgMicrosoft_VisualStudio_SDK_Analyzers Condition=" '$(PkgMicrosoft_VisualStudio_SDK_Analyzers)' == '' ">C:\Users\RAR\.nuget\packages\microsoft.visualstudio.sdk.analyzers\15.8.36</PkgMicrosoft_VisualStudio_SDK_Analyzers>
     <PkgMicrosoft_VSSDK_BuildTools Condition=" '$(PkgMicrosoft_VSSDK_BuildTools)' == '' ">C:\Users\RAR\.nuget\packages\microsoft.vssdk.buildtools\16.2.3073</PkgMicrosoft_VSSDK_BuildTools>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\RAR\.nuget\packages\microsoft.codeanalysis.analyzers\2.9.3</PkgMicrosoft_CodeAnalysis_Analyzers>
   </PropertyGroup>
 </Project>

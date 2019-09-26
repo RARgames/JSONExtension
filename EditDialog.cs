@@ -11,6 +11,10 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio.Text;
+using System.Windows.Forms;
+using System.Text;
+using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace JSONExtension
 {
@@ -98,20 +102,39 @@ namespace JSONExtension
             JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 
             //TODO implement
-            DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-            string text = string.Empty;
-            if (dte.ActiveDocument != null)
-            {
-                var selection = (TextSelection)dte.ActiveDocument.Selection;
-                text = selection.Text;
-                VsShellUtilities.ShowMessageBox(this.package, "", text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-                                                                                                                                                                                      //}
-            }
-            // if (langFile.ContainsKey(text))
+            //DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            //string text = string.Empty;
+            //if (dte.ActiveDocument != null)
             //{
-            //   VsShellUtilities.ShowMessageBox(this.package, langFile[text], text, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+            //    var selection = (TextSelection)dte.ActiveDocument.Selection;
+            //    // text = selection.Text;
+            //   // text = dte.ActiveDocument.poin
+            //    VsShellUtilities.ShowMessageBox(this.package, "", "", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
             //}
 
+
+            //          DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+
+            //  EnvDTE80.DTE2 dte2;
+            //  dte2 = (EnvDTE80.DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE");
+            //  dte2.MainWindow.Activate();
+            //    int line = ((EnvDTE.TextSelection)dte2.ActiveDocument.Selection).ActivePoint.Line;
+            //            int line = ((EnvDTE.TextSelection)dte.ActiveDocument.Selection).ActivePoint.Line;
+            var service = Package.GetGlobalService(typeof(SVsTextManager));
+            var textManager = service as IVsTextManager2;
+            IVsTextView view;
+            int result = textManager.GetActiveView2(1, null, (uint)_VIEWFRAMETYPE.vftCodeWindow, out view);
+
+            view.GetSelection(out int startLine, out int startColumn, out int endLine, out int endColumn);//end could be before beginning
+          //  var start = new TextViewPosition(startLine, startColumn);
+         //   var end = new TextViewPosition(endLine, endColumn);
+
+            view.GetSelectedText(out string selectedText);
+//
+       //     TextViewSelection selection = new TextViewSelection(start, end, selectedText);
+      //      return selection;
+            MessageBox.Show(selectedText);
+            //VsShellUtilities.ShowMessageBox(this.package, "", "", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
         }
     }
 }

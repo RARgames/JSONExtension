@@ -34,6 +34,10 @@
       "frameworks": {
         "net472": {
           "dependencies": {
+            "Microsoft.CodeAnalysis.EditorFeatures.Text": {
+              "target": "Package",
+              "version": "[3.2.1, )"
+            },
             "Microsoft.VSSDK.BuildTools": {
               "target": "Package",
               "version": "[16.2.3073, )"

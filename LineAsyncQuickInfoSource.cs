@@ -45,7 +45,8 @@ namespace JSONExtension
                 JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 #pragma warning restore
                 string value;
-                if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
+
+                if (JSONExtensionPackage.settings.isLoaded && JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
                     value = JSONExtensionPackage.settings.langFile[key];
                 }
@@ -60,10 +61,7 @@ namespace JSONExtension
                     dataElm = new ContainerElement(
                     ContainerElementStyle.Stacked,
                     new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "Key:    " + key)
-                    ),
-                    new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, "Value: " + value)
+                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, value)
                     ));
                 }
                 else //if not loaded show ERROR msg in Quick Info
