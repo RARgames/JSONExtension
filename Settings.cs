@@ -93,6 +93,5 @@ namespace JSONExtension
     }
 }
 
-//TODO implement showing key-value in status bar
 //TODO allow to create a new key and value if not found
 //TODO implement edit window

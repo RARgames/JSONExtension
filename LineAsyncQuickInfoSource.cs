@@ -2,10 +2,6 @@
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -57,7 +53,6 @@ namespace JSONExtension
                 {
                     return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
-                
             }
             return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
         }
