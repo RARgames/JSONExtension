@@ -44,34 +44,21 @@ namespace JSONExtension
 #pragma warning disable
                 JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 #pragma warning restore
-                string value;
-
-                if (JSONExtensionPackage.settings.isLoaded && JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
+                if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
                 {
-                    value = JSONExtensionPackage.settings.langFile[key];
+                    return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension: Not Loaded! If the problem persist add JSON Path in Tools/JSON Extension Settings - Set JSON Path")))));
+                }
+
+                if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
+                {
+                    return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, JSONExtensionPackage.settings.langFile[key]))))); //add key's value to quick info
                 }
                 else
                 {
                     return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
-
-                ContainerElement dataElm;
-                if (JSONExtensionPackage.settings.isLoaded) //if langFile loaded show key/value from lang file
-                {
-                    dataElm = new ContainerElement(
-                    ContainerElementStyle.Stacked,
-                    new ClassifiedTextElement(
-                        new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, value)
-                    ));
-                }
-                else //if not loaded show ERROR msg in Quick Info
-                {
-                    dataElm = new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension: Not Loaded! Add JSON Path in Tools/JSON Extension Settings - Set JSON Path")));
-                }
-
-                return Task.FromResult(new QuickInfoItem(lineSpan, dataElm)); //add custom text from above to Quick Info
+                
             }
-
             return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
         }
         public void Dispose()
