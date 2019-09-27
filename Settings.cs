@@ -63,23 +63,23 @@ namespace JSONExtension
                         else if (verbose)
                         {
 #pragma warning disable
-                            ShowMessageAndStopExecution("JSONExtension: JSON Path not valid!", "Make sure to set it using JSONExtension settings. The file should end with .json and all keys/values should be in en array.");
+                            ShowMessageAndStopExecution("JSON Extension: JSON Path not valid!", "Make sure to set it using JSON Extension settings. The file should end with .json and all keys/values should be in en array.");
 #pragma warning restore
                         }
                     }
                     else if (verbose)
                     {
-                        ShowMessageAndStopExecution("JSONExtension: Path not set!", "Make sure to set it using JSONExtension settings in Tools menu.");
+                        ShowMessageAndStopExecution("JSON Extension: Path not set!", "Make sure to set it using JSON Extension settings in Tools menu.");
                     }
                 }
                 else if (verbose)
                 {
-                    ShowMessageAndStopExecution("JSONExtension: Error getting project path!", "Please report this issue to the developer.");
+                    ShowMessageAndStopExecution("JSON Extension: Error getting project path!", "Please report this issue to the developer.");
                 }
             }
         }
 
-        private void ShowMessageAndStopExecution(string title, string message)
+        public void ShowMessageAndStopExecution(string title, string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             VsShellUtilities.ShowMessageBox(ServiceProvider.GlobalProvider, message, title, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
@@ -95,3 +95,6 @@ namespace JSONExtension
 
 //TODO allow to create a new key and value if not found
 //TODO implement edit window
+
+//TODO modify key binding at JSONExtension\JSONExtensionPackage.vsct
+//TODO check if JSONExtensionPackage.settings.LoadLangFile(); is needed everywhere

@@ -15,6 +15,11 @@ using Microsoft.VisualStudio.Text;
 using System.Windows.Forms;
 using System.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio.Package;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.Text.Formatting;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
 
 namespace JSONExtension
 {
@@ -101,40 +106,43 @@ namespace JSONExtension
 
             JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
 
-            //TODO implement
-            //DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-            //string text = string.Empty;
-            //if (dte.ActiveDocument != null)
-            //{
-            //    var selection = (TextSelection)dte.ActiveDocument.Selection;
-            //    // text = selection.Text;
-            //   // text = dte.ActiveDocument.poin
-            //    VsShellUtilities.ShowMessageBox(this.package, "", "", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
-            //}
+            if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
+            {
+                JSONExtensionPackage.settings.ShowMessageAndStopExecution("JSON Extension: Not Loaded!", "If the problem persist add JSON Path in Tools/JSON Extension Settings");
+                return;
+            }
+
+            DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+
+            var activePoint = ((EnvDTE.TextSelection)dte.ActiveDocument.Selection).ActivePoint;
+            string text = activePoint.CreateEditPoint().GetLines(activePoint.Line, activePoint.Line + 1);
+
+            string key;
+            var textArray = text.Split('"', '"');
+            if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1])) //if there is char between "" set key to it
+            {
+                key = textArray[1];
+                MessageBox.Show(key);
 
 
-            //          DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-
-            //  EnvDTE80.DTE2 dte2;
-            //  dte2 = (EnvDTE80.DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE");
-            //  dte2.MainWindow.Activate();
-            //    int line = ((EnvDTE.TextSelection)dte2.ActiveDocument.Selection).ActivePoint.Line;
-            //            int line = ((EnvDTE.TextSelection)dte.ActiveDocument.Selection).ActivePoint.Line;
-            var service = Package.GetGlobalService(typeof(SVsTextManager));
-            var textManager = service as IVsTextManager2;
-            IVsTextView view;
-            int result = textManager.GetActiveView2(1, null, (uint)_VIEWFRAMETYPE.vftCodeWindow, out view);
-
-            view.GetSelection(out int startLine, out int startColumn, out int endLine, out int endColumn);//end could be before beginning
-          //  var start = new TextViewPosition(startLine, startColumn);
-         //   var end = new TextViewPosition(endLine, endColumn);
-
-            view.GetSelectedText(out string selectedText);
-//
-       //     TextViewSelection selection = new TextViewSelection(start, end, selectedText);
-      //      return selection;
-            MessageBox.Show(selectedText);
-            //VsShellUtilities.ShowMessageBox(this.package, "", "", OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
+                {
+                    //TODO if key exists edit
+                    //open edit window
+                    //save in file and sort entries
+                    //
+                    //JSONExtensionPackage.settings.langFile[key]
+                }
+                else
+                {
+                    //TODO if not ask to create and edit
+                }
+            }
+            else
+            {
+                JSONExtensionPackage.settings.ShowMessageAndStopExecution("JSON Extension: There is no key in this line.", "Example: \"aaa\"");
+                return;
+            }
         }
     }
 }
