@@ -108,7 +108,7 @@ namespace JSONExtension
 
             if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
             {
-                JSONExtensionPackage.settings.ShowMessageAndStopExecution("JSON Extension: Not Loaded!", "If the problem persist add JSON Path in Tools/JSON Extension Settings");
+                MessageBox.Show("Not Loaded!\nIf the problem persist add JSON Path in Tools/JSON Extension Settings", "JSON Extension");
                 return;
             }
 
@@ -127,6 +127,8 @@ namespace JSONExtension
 
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
+                    var form = new EditWindow();
+                    form.Show();
                     //TODO if key exists edit
                     //open edit window
                     //save in file and sort entries
@@ -140,7 +142,7 @@ namespace JSONExtension
             }
             else
             {
-                JSONExtensionPackage.settings.ShowMessageAndStopExecution("JSON Extension: There is no key in this line.", "Example: \"aaa\"");
+                MessageBox.Show("Key does not exist in this line.\nExample: \"key\"", "JSON Extension");
                 return;
             }
         }

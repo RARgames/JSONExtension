@@ -109,15 +109,11 @@ namespace JSONExtension
                 };
                 File.WriteAllText(Path.Combine(projectPath, ".JSONExtensionSettings"), JsonConvert.SerializeObject(settingsJSON));
 
-                string title = "JSON Path set successfully";
-                string message = "JSON Path: " + jsonFilePath + "\nProject Path: " + projectPath;
-                VsShellUtilities.ShowMessageBox(this.package, message, title, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                MessageBox.Show("JSON Path set successfully\nProject Path: " + projectPath + "\nJSON Path: " + jsonFilePath, "JSON Extension");
             }
             else //otherwise show ERROR msg
             {
-                string errorTitle = "Error selecting JSON file";
-                string errorMessage = "1. Open project for which you want to set JSON file.\n2. Select valid JSON path.";
-                VsShellUtilities.ShowMessageBox(this.package, errorMessage, errorTitle, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON path.", "JSON Extension");
             }
         }
     }

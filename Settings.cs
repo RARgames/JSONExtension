@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 namespace JSONExtension
 {
@@ -63,26 +64,26 @@ namespace JSONExtension
                         else if (verbose)
                         {
 #pragma warning disable
-                            ShowMessageAndStopExecution("JSON Extension: JSON Path not valid!", "Make sure to set it using JSON Extension settings. The file should end with .json and all keys/values should be in en array.");
+                            ShowMessageAndStopExecution("JSON Path not valid!\nMake sure to set it using JSON Extension settings. The file should end with .json and all keys/values should be in en array.");
 #pragma warning restore
                         }
                     }
                     else if (verbose)
                     {
-                        ShowMessageAndStopExecution("JSON Extension: Path not set!", "Make sure to set it using JSON Extension settings in Tools menu.");
+                        ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSON Extension settings in Tools menu.");
                     }
                 }
                 else if (verbose)
                 {
-                    ShowMessageAndStopExecution("JSON Extension: Error getting project path!", "Please report this issue to the developer.");
+                    ShowMessageAndStopExecution("Error getting project path!\nOpen the project first.");
                 }
             }
         }
 
-        public void ShowMessageAndStopExecution(string title, string message)
+        private void ShowMessageAndStopExecution(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            VsShellUtilities.ShowMessageBox(ServiceProvider.GlobalProvider, message, title, OLEMSGICON.OLEMSGICON_INFO, OLEMSGBUTTON.OLEMSGBUTTON_OK, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST); //Show a message box
+            MessageBox.Show(message, "JSON Extension");
             return;
         }
     }
