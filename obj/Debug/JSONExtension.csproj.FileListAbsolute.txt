@@ -80,3 +80,4 @@ C:\Users\RAR\Desktop\JSONExtension\bin\Debug\System.Text.Encoding.CodePages.dll
 C:\Users\RAR\Desktop\JSONExtension\bin\Debug\System.Threading.Tasks.Extensions.dll
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.csproj.CopyComplete
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.EditWindow.resources
+C:\Users\RAR\Desktop\JSONExtension\obj\Debug\_EmptyResource.resources.original

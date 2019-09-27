@@ -42,20 +42,20 @@
             // newValueText
             // 
             this.newValueText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newValueText.Location = new System.Drawing.Point(94, 37);
+            this.newValueText.Location = new System.Drawing.Point(122, 37);
             this.newValueText.Multiline = true;
             this.newValueText.Name = "newValueText";
-            this.newValueText.Size = new System.Drawing.Size(1394, 445);
+            this.newValueText.Size = new System.Drawing.Size(351, 95);
             this.newValueText.TabIndex = 0;
             // 
             // prevValueText
             // 
             this.prevValueText.AutoSize = true;
             this.prevValueText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prevValueText.Location = new System.Drawing.Point(94, 17);
+            this.prevValueText.Location = new System.Drawing.Point(122, 17);
             this.prevValueText.Name = "prevValueText";
-            this.prevValueText.Padding = new System.Windows.Forms.Padding(2);
-            this.prevValueText.Size = new System.Drawing.Size(1394, 17);
+            this.prevValueText.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.prevValueText.Size = new System.Drawing.Size(351, 17);
             this.prevValueText.TabIndex = 5;
             this.prevValueText.Text = "previous value placeholder";
             // 
@@ -63,10 +63,10 @@
             // 
             this.keyText.AutoSize = true;
             this.keyText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.keyText.Location = new System.Drawing.Point(94, 0);
+            this.keyText.Location = new System.Drawing.Point(122, 0);
             this.keyText.Name = "keyText";
-            this.keyText.Padding = new System.Windows.Forms.Padding(2);
-            this.keyText.Size = new System.Drawing.Size(1394, 17);
+            this.keyText.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.keyText.Size = new System.Drawing.Size(351, 17);
             this.keyText.TabIndex = 4;
             this.keyText.Text = "key placeholder";
             // 
@@ -77,7 +77,7 @@
             this.labelNewValue.Location = new System.Drawing.Point(3, 34);
             this.labelNewValue.Name = "labelNewValue";
             this.labelNewValue.Padding = new System.Windows.Forms.Padding(2);
-            this.labelNewValue.Size = new System.Drawing.Size(85, 451);
+            this.labelNewValue.Size = new System.Drawing.Size(113, 101);
             this.labelNewValue.TabIndex = 3;
             this.labelNewValue.Text = "New Value:";
             // 
@@ -88,7 +88,7 @@
             this.labelPrevValue.Location = new System.Drawing.Point(3, 17);
             this.labelPrevValue.Name = "labelPrevValue";
             this.labelPrevValue.Padding = new System.Windows.Forms.Padding(2);
-            this.labelPrevValue.Size = new System.Drawing.Size(85, 17);
+            this.labelPrevValue.Size = new System.Drawing.Size(113, 17);
             this.labelPrevValue.TabIndex = 2;
             this.labelPrevValue.Text = "Previous Value:";
             // 
@@ -99,15 +99,15 @@
             this.labelKey.Location = new System.Drawing.Point(3, 0);
             this.labelKey.Name = "labelKey";
             this.labelKey.Padding = new System.Windows.Forms.Padding(2);
-            this.labelKey.Size = new System.Drawing.Size(85, 17);
+            this.labelKey.Size = new System.Drawing.Size(113, 17);
             this.labelKey.TabIndex = 1;
             this.labelKey.Text = "Key:";
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanel1.Controls.Add(this.labelKey, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelPrevValue, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelNewValue, 0, 2);
@@ -122,15 +122,15 @@
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1491, 792);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 178);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // acceptButton
             // 
             this.acceptButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.acceptButton.Location = new System.Drawing.Point(1406, 759);
+            this.acceptButton.Location = new System.Drawing.Point(391, 145);
             this.acceptButton.Margin = new System.Windows.Forms.Padding(10);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(75, 23);
@@ -141,12 +141,15 @@
             // 
             // EditWindow
             // 
+            this.AcceptButton = this.acceptButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1491, 792);
+            this.ClientSize = new System.Drawing.Size(476, 178);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MinimumSize = new System.Drawing.Size(492, 217);
             this.Name = "EditWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "JSON Extension Edit Window";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

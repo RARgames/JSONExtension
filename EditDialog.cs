@@ -126,12 +126,14 @@ namespace JSONExtension
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
                     var form = new EditWindow(key, JSONExtensionPackage.settings.langFile[key]);
-                    form.Show();
+                    form.ShowDialog();
                     //TODO if key exists edit
-                    //open edit window
-                    //save in file and sort entries
-                    //
-                    //JSONExtensionPackage.settings.langFile[key]
+                    //TODO open edit window
+                    //TODO save in file and sort entries
+                    //TODO enter to accept
+                    //TODO don't auto select text
+                    //TODO change font
+
                 }
                 else
                 {

@@ -17,6 +17,9 @@ namespace JSONExtension
             InitializeComponent();
             keyText.Text = key;
             prevValueText.Text = value;
+            newValueText.Text = value;
+            this.Cursor = new Cursor(Cursor.Current.Handle);
+            this.Location = Cursor.Position;
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)

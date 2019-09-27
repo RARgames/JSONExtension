@@ -39,7 +39,7 @@
       <Group guid="guidJSONExtensionPackageCmdSet" id="ToolsMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
-      <Group guid="guidJSONExtensionPackageCmdSet1" id="RightClickMenuGroup" priority="0x0600">
+      <Group guid="guidJSONExtensionPackageCmdSet1" id="RightClickMenuGroup" priority="0x0000">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
       </Group>
     </Groups>
@@ -61,7 +61,7 @@
           <ButtonText>JSON Extension Settings</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" priority="0x0100" type="Button">
+      <Button guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" priority="0x0000" type="Button">
         <Parent guid="guidJSONExtensionPackageCmdSet1" id="RightClickMenuGroup" />
         <Strings>
           <ButtonText>JSON Extension - Edit JSON</ButtonText>
