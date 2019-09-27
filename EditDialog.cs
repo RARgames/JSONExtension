@@ -122,12 +122,10 @@ namespace JSONExtension
             if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1])) //if there is char between "" set key to it
             {
                 key = textArray[1];
-                MessageBox.Show(key);
-
 
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
-                    var form = new EditWindow();
+                    var form = new EditWindow(key, JSONExtensionPackage.settings.langFile[key]);
                     form.Show();
                     //TODO if key exists edit
                     //open edit window

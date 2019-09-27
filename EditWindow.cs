@@ -12,17 +12,14 @@ namespace JSONExtension
 {
     public partial class EditWindow : Form
     {
-        public EditWindow()
+        public EditWindow(string key, string value)
         {
             InitializeComponent();
+            keyText.Text = key;
+            prevValueText.Text = value;
         }
 
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged(object sender, EventArgs e)
+        private void AcceptButton_Click(object sender, EventArgs e)
         {
 
         }
