@@ -1,6 +1,6 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
   <Metadata>
-    <Identity Id="JSONExtension.aa2e9439-cffe-431e-a212-7250d06a79ca" Version="2.0" Language="en-US" Publisher="RARgames" />
+    <Identity Id="JSONExtension.aa2e9439-cffe-431e-a212-7250d06a79ca" Version="2.2" Language="en-US" Publisher="RARgames" />
     <DisplayName>JSONExtension</DisplayName>
     <Description xml:space="preserve">JSON Extension</Description>
   </Metadata>

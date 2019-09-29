@@ -24,7 +24,8 @@ namespace JSONExtension
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
-
+            //JSONExtensionPackage.settings.EditEntry(keyText.Text, keyText.Text, newValueText.Text);
+            Dispose();
         }
     }
 }

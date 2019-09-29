@@ -11,7 +11,6 @@ C:\Users\RAR\Desktop\JSONExtension\obj\Debug\VSCT.write.1.tlog
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\resources.json
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\ctoFiles.json
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\mergeCto.cache
-C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.csproj.CoreCompileInputs.cache
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.dll
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.pdb
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.pkgdef
@@ -80,4 +79,3 @@ C:\Users\RAR\Desktop\JSONExtension\bin\Debug\System.Text.Encoding.CodePages.dll
 C:\Users\RAR\Desktop\JSONExtension\bin\Debug\System.Threading.Tasks.Extensions.dll
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.csproj.CopyComplete
 C:\Users\RAR\Desktop\JSONExtension\obj\Debug\JSONExtension.EditWindow.resources
-C:\Users\RAR\Desktop\JSONExtension\obj\Debug\_EmptyResource.resources.original

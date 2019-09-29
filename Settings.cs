@@ -14,6 +14,9 @@ namespace JSONExtension
         public Dictionary<string, string> langFile; //contains keys and values of language file
         public bool isLoaded = false; //flag after loading langFile set to true
 
+       // private JObject data;
+      //  private string jsonPath;
+
         public void Initialize() //called at the start by JSONExtensionPackage
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -54,6 +57,7 @@ namespace JSONExtension
                         if (settingsJSON.jsonPath.EndsWith(".json")) //if jsonPath ends with .json, read language file and transform en localization into langFile dictionary
                         {
                             string temp = File.ReadAllText(settingsJSON.jsonPath);
+                            //// jsonPath = settingsJSON.jsonPath;
 
                             var data = (JObject)JsonConvert.DeserializeObject(temp);
                             var langEN = data["en"].Value<JObject>().ToString();
@@ -80,6 +84,32 @@ namespace JSONExtension
             }
         }
 
+        //public void EditEntry(string oldKey, string newKey, string newValue)
+        //{
+        //    if (isLoaded && langFile.ContainsKey(oldKey))
+        //    {
+        //        langFile.Remove(oldKey);
+        //        langFile.Add(newKey, newValue);
+        //        Save();
+        //    }
+        //}
+
+        //public void Save()
+        //{
+        //    if (!isLoaded)
+        //    {
+        //        return;
+        //    }
+        //    string json = JsonConvert.SerializeObject(langFile);
+        ////    data["en"] = json;
+        //    //string rdyJson = JsonConvert.SerializeObject(data);
+        //    //data["en"] = langFile.ToString();
+
+        //    //string rdyJson = JsonConvert.SerializeObject(data);
+        //    //string rdyJson = json;
+        //    File.WriteAllText(jsonPath, json);// data.ToString());
+        //}
+
         private void ShowMessageAndStopExecution(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -93,9 +123,3 @@ namespace JSONExtension
         public string jsonPath;
     }
 }
-
-//TODO allow to create a new key and value if not found
-//TODO implement edit window
-
-//TODO modify key binding at JSONExtension\JSONExtensionPackage.vsct
-//TODO check if JSONExtensionPackage.settings.LoadLangFile(); is needed everywhere

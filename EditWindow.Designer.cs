@@ -42,20 +42,22 @@
             // newValueText
             // 
             this.newValueText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newValueText.Location = new System.Drawing.Point(122, 37);
+            this.newValueText.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newValueText.Location = new System.Drawing.Point(122, 41);
             this.newValueText.Multiline = true;
             this.newValueText.Name = "newValueText";
-            this.newValueText.Size = new System.Drawing.Size(351, 95);
+            this.newValueText.Size = new System.Drawing.Size(351, 91);
             this.newValueText.TabIndex = 0;
             // 
             // prevValueText
             // 
             this.prevValueText.AutoSize = true;
             this.prevValueText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prevValueText.Location = new System.Drawing.Point(122, 17);
+            this.prevValueText.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prevValueText.Location = new System.Drawing.Point(122, 19);
             this.prevValueText.Name = "prevValueText";
             this.prevValueText.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.prevValueText.Size = new System.Drawing.Size(351, 17);
+            this.prevValueText.Size = new System.Drawing.Size(351, 19);
             this.prevValueText.TabIndex = 5;
             this.prevValueText.Text = "previous value placeholder";
             // 
@@ -63,10 +65,11 @@
             // 
             this.keyText.AutoSize = true;
             this.keyText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.keyText.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.keyText.Location = new System.Drawing.Point(122, 0);
             this.keyText.Name = "keyText";
             this.keyText.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.keyText.Size = new System.Drawing.Size(351, 17);
+            this.keyText.Size = new System.Drawing.Size(351, 19);
             this.keyText.TabIndex = 4;
             this.keyText.Text = "key placeholder";
             // 
@@ -74,10 +77,10 @@
             // 
             this.labelNewValue.AutoSize = true;
             this.labelNewValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelNewValue.Location = new System.Drawing.Point(3, 34);
+            this.labelNewValue.Location = new System.Drawing.Point(3, 38);
             this.labelNewValue.Name = "labelNewValue";
             this.labelNewValue.Padding = new System.Windows.Forms.Padding(2);
-            this.labelNewValue.Size = new System.Drawing.Size(113, 101);
+            this.labelNewValue.Size = new System.Drawing.Size(113, 97);
             this.labelNewValue.TabIndex = 3;
             this.labelNewValue.Text = "New Value:";
             // 
@@ -85,10 +88,10 @@
             // 
             this.labelPrevValue.AutoSize = true;
             this.labelPrevValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelPrevValue.Location = new System.Drawing.Point(3, 17);
+            this.labelPrevValue.Location = new System.Drawing.Point(3, 19);
             this.labelPrevValue.Name = "labelPrevValue";
             this.labelPrevValue.Padding = new System.Windows.Forms.Padding(2);
-            this.labelPrevValue.Size = new System.Drawing.Size(113, 17);
+            this.labelPrevValue.Size = new System.Drawing.Size(113, 19);
             this.labelPrevValue.TabIndex = 2;
             this.labelPrevValue.Text = "Previous Value:";
             // 
@@ -99,7 +102,7 @@
             this.labelKey.Location = new System.Drawing.Point(3, 0);
             this.labelKey.Name = "labelKey";
             this.labelKey.Padding = new System.Windows.Forms.Padding(2);
-            this.labelKey.Size = new System.Drawing.Size(113, 17);
+            this.labelKey.Size = new System.Drawing.Size(113, 19);
             this.labelKey.TabIndex = 1;
             this.labelKey.Text = "Key:";
             // 
