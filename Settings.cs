@@ -14,8 +14,8 @@ namespace JSONExtension
         public Dictionary<string, string> langFile; //contains keys and values of language file
         public bool isLoaded = false; //flag after loading langFile set to true
 
-       // private JObject data;
-      //  private string jsonPath;
+        private JObject data;
+        private string jsonPath;
 
         public void Initialize() //called at the start by JSONExtensionPackage
         {
@@ -56,10 +56,10 @@ namespace JSONExtension
                         SettingsJSON settingsJSON = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using JsonCOnvert to deserialize and check jsonPath
                         if (settingsJSON.jsonPath.EndsWith(".json")) //if jsonPath ends with .json, read language file and transform en localization into langFile dictionary
                         {
-                            string temp = File.ReadAllText(settingsJSON.jsonPath);
-                            //// jsonPath = settingsJSON.jsonPath;
+                            jsonPath = settingsJSON.jsonPath;
+                            string temp = File.ReadAllText(jsonPath);
 
-                            var data = (JObject)JsonConvert.DeserializeObject(temp);
+                            data = (JObject)JsonConvert.DeserializeObject(temp);
                             var langEN = data["en"].Value<JObject>().ToString();
                             langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
 
@@ -84,31 +84,27 @@ namespace JSONExtension
             }
         }
 
-        //public void EditEntry(string oldKey, string newKey, string newValue)
-        //{
-        //    if (isLoaded && langFile.ContainsKey(oldKey))
-        //    {
-        //        langFile.Remove(oldKey);
-        //        langFile.Add(newKey, newValue);
-        //        Save();
-        //    }
-        //}
+        public void EditEntry(string oldKey, string newKey, string newValue)
+        {
+            if (isLoaded && langFile.ContainsKey(oldKey))
+            {
+                langFile.Remove(oldKey);
+                langFile.Add(newKey, newValue);
+                Save();
+            }
+        }
 
-        //public void Save()
-        //{
-        //    if (!isLoaded)
-        //    {
-        //        return;
-        //    }
-        //    string json = JsonConvert.SerializeObject(langFile);
-        ////    data["en"] = json;
-        //    //string rdyJson = JsonConvert.SerializeObject(data);
-        //    //data["en"] = langFile.ToString();
-
-        //    //string rdyJson = JsonConvert.SerializeObject(data);
-        //    //string rdyJson = json;
-        //    File.WriteAllText(jsonPath, json);// data.ToString());
-        //}
+        public void Save()
+        {
+            if (!isLoaded)
+            {
+                return;
+            }
+            string json = JsonConvert.SerializeObject(langFile);
+            data["en"] = JToken.FromObject(langFile);
+            string rdyJson = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(jsonPath, rdyJson);
+        }
 
         private void ShowMessageAndStopExecution(string message)
         {

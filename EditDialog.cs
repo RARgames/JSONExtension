@@ -152,3 +152,4 @@ namespace JSONExtension
 
 //TODO modify key binding at JSONExtension\JSONExtensionPackage.vsct
 //TODO check if JSONExtensionPackage.settings.LoadLangFile(); is needed everywhere
+//TODO check for correctness of given json
