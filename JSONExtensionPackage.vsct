@@ -81,7 +81,7 @@
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" editor="guidVSStd97" key1="N" mod1="Control Alt"></KeyBinding>
+    <KeyBinding guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" editor="guidVSStd97" key1="E" mod1="Alt"></KeyBinding>
   </KeyBindings>
 
   <Symbols>
