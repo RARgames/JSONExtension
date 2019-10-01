@@ -131,6 +131,8 @@ namespace JSONExtension
                 else
                 {
                     //TODO if not ask to create and edit
+                    var form = new EditWindow(key, "", true);
+                    form.ShowDialog();
                 }
             }
             else
@@ -142,5 +144,4 @@ namespace JSONExtension
     }
 }
 
-//TODO check if JSONExtensionPackage.settings.LoadLangFile(); is needed everywhere
 //TODO check for correctness of given json

@@ -12,7 +12,7 @@ namespace JSONExtension
 {
     public partial class EditWindow : Form
     {
-        public EditWindow(string key, string value)
+        public EditWindow(string key, string value, bool createNew = false)
         {
             InitializeComponent();
             prevkeyText.Text = key;
@@ -24,6 +24,12 @@ namespace JSONExtension
             this.Location = Cursor.Position; //move window to the cursor location
 
             newValueText.Select(0, 0); //move cursor to first char of textbox
+
+            if (createNew)
+            {
+                this.Text = "Create new";
+                //TODO implement
+            }
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)

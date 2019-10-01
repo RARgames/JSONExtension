@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -93,6 +94,11 @@ namespace JSONExtension
                 Save();
                 if (string.Compare(oldKey, newKey) != 0)
                 {
+                    IVsFindHelper pHelper = Package.GetGlobalService(typeof(IVsFindHelper)) as IVsFindHelper;
+                   // IVsFindTarget ptarget = ;
+                    //ptarget.Replace(oldKey, newKey, (uint)__VSFINDOPTIONS.FR_Solution | (uint)__VSFINDOPTIONS.FR_ReplaceAll | (uint)__VSFINDOPTIONS.FR_MatchCase, 1, pHelper, out int pfReplaced);
+                    //MessageBox.Show(pfReplaced.ToString());
+                    //__VSFINDOPTIONS.FR_Solution | __VSFINDOPTIONS.FR_ReplaceAll | __VSFINDOPTIONS.FR_MatchCase
                     //TODO implement - change in all files in solution old key to new key
                 }
             }
