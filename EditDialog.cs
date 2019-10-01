@@ -127,11 +127,6 @@ namespace JSONExtension
                 {
                     var form = new EditWindow(key, JSONExtensionPackage.settings.langFile[key]);
                     form.ShowDialog();
-                    //TODO if key exists edit
-                    //TODO open edit window
-                    //TODO save in file and sort entries
-                    //TODO enter to accept
-                    //TODO be able to select text
                 }
                 else
                 {

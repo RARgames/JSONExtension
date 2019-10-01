@@ -91,6 +91,7 @@ namespace JSONExtension
                 langFile.Remove(oldKey);
                 langFile.Add(newKey, newValue);
                 Save();
+                //TODO implement - change in all files if (string.Compare(oldKey, newKey))
             }
         }
 
