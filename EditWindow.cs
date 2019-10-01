@@ -18,8 +18,12 @@ namespace JSONExtension
             keyText.Text = key;
             prevValueText.Text = value;
             newValueText.Text = value;
+
             this.Cursor = new Cursor(Cursor.Current.Handle);
-            this.Location = Cursor.Position;
+            this.Location = Cursor.Position; //move window to the cursor location
+
+           // newValueText.Focus();
+            newValueText.Select(0, 0); //move cursor to first char of textbox
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)

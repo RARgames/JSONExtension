@@ -100,10 +100,9 @@ namespace JSONExtension
             {
                 return;
             }
-            string json = JsonConvert.SerializeObject(langFile);
             data["en"] = JToken.FromObject(langFile);
-            string rdyJson = JsonConvert.SerializeObject(data, Formatting.Indented);
-            File.WriteAllText(jsonPath, rdyJson);
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(jsonPath, json);
         }
 
         private void ShowMessageAndStopExecution(string message)

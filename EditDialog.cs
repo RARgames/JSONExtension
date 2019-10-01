@@ -131,10 +131,7 @@ namespace JSONExtension
                     //TODO open edit window
                     //TODO save in file and sort entries
                     //TODO enter to accept
-                    //TODO don't auto select text
                     //TODO be able to select text
-                    //TODO change key and in files respectively
-
                 }
                 else
                 {
