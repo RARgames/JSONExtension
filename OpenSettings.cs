@@ -108,8 +108,8 @@ namespace JSONExtension
                     jsonPath = jsonFilePath
                 };
                 File.WriteAllText(Path.Combine(projectPath, ".JSONExtensionSettings"), JsonConvert.SerializeObject(settingsJSON));
-                //TODO it should be force reload here - to not require reloading project after
-                JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
+
+                JSONExtensionPackage.settings.LoadLangFile(true); //force reload lang file
 
                 MessageBox.Show("JSON Path set successfully\nProject Path: " + projectPath + "\nJSON Path: " + jsonFilePath, "JSON Extension");
             }
