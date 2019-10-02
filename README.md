@@ -10,3 +10,5 @@ IMPORTANT: How to create project for the first time:
 	<Asset Type = "Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
 </Assets>
 ```
+
+Test project at: JSONExtension/test

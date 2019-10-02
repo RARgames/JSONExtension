@@ -1,0 +1,31 @@
+{
+  "en": {
+    "key1": "value 1",
+    "key2": "value 2",
+    "key3": "value 3",
+    "key4": "value 4",
+    "key5": "value 5",
+    "key6": "value 6",
+    "key7": "value 7",
+    "key8": "value 8",
+    "key9": "value 9",
+    "key10": "value 10",
+    "key11": "value 11",
+    "key12": "value 12",
+    "key13": "value 13",
+    "key14": "value 14",
+    "key15": "value 15",
+    "key16": "value 16",
+    "key17": "value 17",
+    "key18": "value 18",
+    "key19": "value 19",
+    "key20": "value 20"
+  },
+  "others": {
+    "maxChars": {
+      "default": 125,
+      "key1": 16,
+      "key10": 10
+    }
+  }
+}
