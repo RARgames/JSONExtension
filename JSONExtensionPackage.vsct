@@ -64,7 +64,7 @@
       <Button guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" priority="0x0000" type="Button">
         <Parent guid="guidJSONExtensionPackageCmdSet1" id="RightClickMenuGroup" />
         <Strings>
-          <ButtonText>JSON Extension - Edit JSON</ButtonText>
+          <ButtonText>JSON Extension - Edit/Create JSON</ButtonText>
         </Strings>
       </Button>
     </Buttons>

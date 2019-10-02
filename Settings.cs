@@ -87,25 +87,46 @@ namespace JSONExtension
             }
         }
 
-        public void EditEntry(string oldKey, string newKey, string newValue)
+        public void EditEntry(string oldKey, string newKey, string oldValue, string newValue)
         {
-            if (isLoaded && langFile.ContainsKey(oldKey))
+            if (isLoaded)
             {
-                langFile.Remove(oldKey);
-                langFile.Add(newKey, newValue);
-                Save();
-                if (string.Compare(oldKey, newKey) != 0)
+                if (string.IsNullOrEmpty(oldKey)) //if there was no key (key input in dialog)
                 {
-                    IVsFindHelper pHelper = Package.GetGlobalService(typeof(IVsFindHelper)) as IVsFindHelper;
-              //      IVsTextManager textManager = (IVsTextManager)Package.GetGlobalService((typeof(SVsTextManager)));
-                 //   textManager.din
-
-                   //  IVsFindTarget ptarget = this.cachedEditorFindTarget;
-                    //ptarget.Replace(oldKey, newKey, (uint)__VSFINDOPTIONS.FR_Solution | (uint)__VSFINDOPTIONS.FR_ReplaceAll | (uint)__VSFINDOPTIONS.FR_MatchCase, 1, pHelper, out int pfReplaced);
-                    //MessageBox.Show(pfReplaced.ToString());
-                    //__VSFINDOPTIONS.FR_Solution | __VSFINDOPTIONS.FR_ReplaceAll | __VSFINDOPTIONS.FR_MatchCase
-                    //TODO implement - change in all files in solution old key to new key
+                    langFile.Add(newKey, newValue); //create new key and value in json
                 }
+                else
+                {
+                    if (string.IsNullOrEmpty(oldValue)) //if there was a key before a dialog, but it had no value - therefore it was not available in .json
+                    {
+                        langFile.Add(newKey, newValue); //create new key and value in json
+                        if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                        {
+                            //TODO do not allow key replacement to existing key
+                            //TODO Implement Replace(oldKey, newKey) in the whole solution
+                        }
+                    }
+                    else //if there was a key and it had a value
+                    {//TODO check if replacing in whole solution replaces in .json too, if so fix it
+                        if (langFile.ContainsKey(oldKey)) //extra precaucion
+                        {
+                            //TODO do not allow key replacement to existing key
+                            langFile.Remove(oldKey); //remove old key
+                            langFile.Add(newKey, newValue); //create new key and value in json
+                            if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                            {
+                                //TODO Implement Replace(oldKey, newKey) in the whole solution
+
+                                //IVsFindTarget.Replace
+                                //IVsFindHelper pHelper = Package.GetGlobalService(typeof(IVsFindHelper)) as IVsFindHelper;
+                                //ptarget.Replace(oldKey, newKey, (uint)__VSFINDOPTIONS.FR_Solution | (uint)__VSFINDOPTIONS.FR_ReplaceAll | (uint)__VSFINDOPTIONS.FR_MatchCase, 1, pHelper, out int pfReplaced);
+                                //MessageBox.Show(pfReplaced.ToString());
+                                //__VSFINDOPTIONS.FR_Solution | __VSFINDOPTIONS.FR_ReplaceAll | __VSFINDOPTIONS.FR_MatchCase
+                            }
+                        }
+                    }
+                }
+                Save();
             }
         }
 

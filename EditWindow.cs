@@ -27,14 +27,13 @@ namespace JSONExtension
 
             if (createNew)
             {
-                this.Text = "Create new";
-                //TODO implement
+                this.Text = "JSON Extension Create Window";
             }
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
-            JSONExtensionPackage.settings.EditEntry(prevkeyText.Text, newKeyText.Text, newValueText.Text);
+            JSONExtensionPackage.settings.EditEntry(prevkeyText.Text, newKeyText.Text, prevValueText.Text, newValueText.Text);
             Dispose();
         }
     }

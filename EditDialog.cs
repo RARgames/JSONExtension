@@ -130,15 +130,14 @@ namespace JSONExtension
                 }
                 else
                 {
-                    //TODO if not ask to create and edit
                     var form = new EditWindow(key, "", true);
                     form.ShowDialog();
                 }
             }
             else
             {
-                MessageBox.Show("Key does not exist in this line.\nExample: \"key\"", "JSON Extension");
-                return;
+                var form = new EditWindow("", "", true);
+                form.ShowDialog();
             }
         }
     }
