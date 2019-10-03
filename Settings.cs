@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.ProjectSystem;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Newtonsoft.Json;
@@ -89,45 +91,50 @@ namespace JSONExtension
 
         public void EditEntry(string oldKey, string newKey, string oldValue, string newValue)
         {
-            if (isLoaded)
-            {
-                if (string.IsNullOrEmpty(oldKey)) //if there was no key (key input in dialog)
+            ThreadHelper.JoinableTaskFactory.Run(async delegate { //switch to main thread
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                if (isLoaded)
                 {
-                    langFile.Add(newKey, newValue); //create new key and value in json
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(oldValue)) //if there was a key before a dialog, but it had no value - therefore it was not available in .json
+                    if (string.IsNullOrEmpty(oldKey)) //if there was no key (key input in dialog)
                     {
                         langFile.Add(newKey, newValue); //create new key and value in json
-                        if (string.Compare(oldKey, newKey) != 0) //if key has changed
-                        {
-                            //TODO do not allow key replacement to existing key
-                            //TODO Implement Replace(oldKey, newKey) in the whole solution
-                        }
                     }
-                    else //if there was a key and it had a value
-                    {//TODO check if replacing in whole solution replaces in .json too, if so fix it
-                        if (langFile.ContainsKey(oldKey)) //extra precaucion
+                    else
+                    {
+                        if (string.IsNullOrEmpty(oldValue)) //if there was a key before a dialog, but it had no value - therefore it was not available in .json
                         {
-                            //TODO do not allow key replacement to existing key
-                            langFile.Remove(oldKey); //remove old key
                             langFile.Add(newKey, newValue); //create new key and value in json
                             if (string.Compare(oldKey, newKey) != 0) //if key has changed
                             {
+                                //TODO do not allow key replacement to existing key
                                 //TODO Implement Replace(oldKey, newKey) in the whole solution
+                            }
+                        }
+                        else //if there was a key and it had a value
+                        {//TODO check if replacing in whole solution replaces in .json too, if so fix it
+                            if (langFile.ContainsKey(oldKey)) //extra precaucion
+                            {
+                                //TODO do not allow key replacement to existing key
+                                langFile.Remove(oldKey); //remove old key
+                                langFile.Add(newKey, newValue); //create new key and value in json
+                                if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                                {
 
-                                //IVsFindTarget.Replace
-                                //IVsFindHelper pHelper = Package.GetGlobalService(typeof(IVsFindHelper)) as IVsFindHelper;
-                                //ptarget.Replace(oldKey, newKey, (uint)__VSFINDOPTIONS.FR_Solution | (uint)__VSFINDOPTIONS.FR_ReplaceAll | (uint)__VSFINDOPTIONS.FR_MatchCase, 1, pHelper, out int pfReplaced);
-                                //MessageBox.Show(pfReplaced.ToString());
-                                //__VSFINDOPTIONS.FR_Solution | __VSFINDOPTIONS.FR_ReplaceAll | __VSFINDOPTIONS.FR_MatchCase
+                                    //TODO Implement Replace(oldKey, newKey) in the whole solution
+                                    DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+
+                                    var find = (EnvDTE.Find)dte.Find;
+
+                                    find.FindReplace(vsFindAction.vsFindActionReplaceAll, oldKey, (int)vsFindOptions.vsFindOptionsKeepModifiedDocumentsOpen | (int)vsFindOptions.vsFindOptionsMatchCase, newKey, vsFindTarget.vsFindTargetSolution);
+
+                                }
                             }
                         }
                     }
+                    Save();
                 }
-                Save();
-            }
+            });
         }
 
         public void Save()
@@ -154,3 +161,5 @@ namespace JSONExtension
         public string jsonPath;
     }
 }
+
+//TODO add msg if key edit failed
