@@ -58,13 +58,13 @@
       <Button guid="guidJSONExtensionPackageCmdSet" id="OpenSettingsId" priority="0x0100" type="Button">
         <Parent guid="guidJSONExtensionPackageCmdSet" id="ToolsMenuGroup" />
         <Strings>
-          <ButtonText>JSON Extension Settings</ButtonText>
+          <ButtonText>JSONEx Settings</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidJSONExtensionPackageCmdSet1" id="EditDialogId" priority="0x0000" type="Button">
         <Parent guid="guidJSONExtensionPackageCmdSet1" id="RightClickMenuGroup" />
         <Strings>
-          <ButtonText>JSON Extension - Edit/Create JSON</ButtonText>
+          <ButtonText>JSONEx - Edit/Create JSON</ButtonText>
         </Strings>
       </Button>
     </Buttons>

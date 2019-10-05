@@ -27,7 +27,7 @@ namespace JSONExtension
 
             if (createNew)
             {
-                this.Text = "JSON Extension Create Window";
+                this.Text = "JSONEx Create Window";
             }
         }
 

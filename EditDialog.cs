@@ -104,11 +104,11 @@ namespace JSONExtension
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
+            JSONExtensionPackage.settings.LoadLangFile(true); //force reload lang file
 
             if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
             {
-                MessageBox.Show("Not Loaded!\nIf the problem persist add JSON Path in Tools/JSON Extension Settings", "JSON Extension");
+                MessageBox.Show("Not Loaded!\nIf the problem persist add JSON Path in Tools/JSONEx Settings", "JSONEx");
                 return;
             }
 

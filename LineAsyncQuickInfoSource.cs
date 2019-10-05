@@ -42,7 +42,7 @@ namespace JSONExtension
 #pragma warning restore
                 if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
                 {
-                    return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSON Extension: Not Loaded! If the problem persist add JSON Path in Tools/JSON Extension Settings")))));
+                    return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSONEx: Not Loaded! If the problem persist add JSON Path in Tools/JSONEx Settings")))));
                 }
 
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 

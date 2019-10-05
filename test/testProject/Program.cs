@@ -23,6 +23,10 @@ namespace testProject
 
             //Existing keys
             Console.WriteLine(ConvertKey("key1"));
+            //"key1x"
+            //"xkey1"
+            //key1
+            //"key1 xx"
             Console.WriteLine(ConvertKey("key2"));
             Console.WriteLine(ConvertKey("key3"));
             Console.WriteLine(ConvertKey("key4"));

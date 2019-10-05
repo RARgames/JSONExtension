@@ -111,11 +111,11 @@ namespace JSONExtension
 
                 JSONExtensionPackage.settings.LoadLangFile(true); //force reload lang file
 
-                MessageBox.Show("JSON Path set successfully\nProject Path: " + projectPath + "\nJSON Path: " + jsonFilePath, "JSON Extension");
+                MessageBox.Show("JSON Path set successfully\nProject Path: " + projectPath + "\nJSON Path: " + jsonFilePath, "JSONEx");
             }
             else //otherwise show ERROR msg
             {
-                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON path.", "JSON Extension");
+                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON path.", "JSONEx");
             }
         }
     }

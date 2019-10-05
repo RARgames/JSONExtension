@@ -178,7 +178,7 @@
             this.Name = "EditWindow";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "JSON Extension Edit Window";
+            this.Text = "JSONEx Edit Window";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

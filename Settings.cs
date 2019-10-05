@@ -73,13 +73,13 @@ namespace JSONExtension
                         else if (verbose)
                         {
 #pragma warning disable
-                            ShowMessageAndStopExecution("JSON Path not valid!\nMake sure to set it using JSON Extension settings. The file should end with .json and all keys/values should be in en array.");
+                            ShowMessageAndStopExecution("JSON Path not valid!\nMake sure to set it using JSONEx settings. The file should end with .json and all keys/values should be in en array.");
 #pragma warning restore
                         }
                     }
                     else if (verbose)
                     {
-                        ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSON Extension settings in Tools menu.");
+                        ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSONEx settings in Tools menu.");
                     }
                 }
                 else if (verbose)
@@ -91,48 +91,66 @@ namespace JSONExtension
 
         public void EditEntry(string oldKey, string newKey, string oldValue, string newValue)
         {
-            ThreadHelper.JoinableTaskFactory.Run(async delegate { //switch to main thread
+            ThreadHelper.JoinableTaskFactory.Run(async delegate
+            { //switch to main thread
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                if (string.IsNullOrEmpty(newKey) || string.IsNullOrEmpty(newValue))
+                {
+                    MessageBox.Show("Key edit failed!\nNew key/value cannot be empty.", "JSONEx");
+                    return;
+                }
 
                 if (isLoaded)
                 {
                     if (string.IsNullOrEmpty(oldKey)) //if there was no key (key input in dialog)
                     {
                         langFile.Add(newKey, newValue); //create new key and value in json
+                        Save();
                     }
                     else
                     {
                         if (string.IsNullOrEmpty(oldValue)) //if there was a key before a dialog, but it had no value - therefore it was not available in .json
                         {
-                            langFile.Add(newKey, newValue); //create new key and value in json
-                            if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                            if ((string.Compare(oldKey, newKey) == 0) || ((string.Compare(oldKey, newKey) != 0) && !langFile.ContainsKey(newKey)))
                             {
-                                //TODO do not allow key replacement to existing key
-                                //TODO Implement Replace(oldKey, newKey) in the whole solution
+                                langFile.Add(newKey, newValue); //create new key and value in json
+                                Save();
+                                if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                                {
+                                    DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+                                    dte.Find.FindReplace(vsFindAction.vsFindActionReplaceAll, "\"" + oldKey + "\"", (int)vsFindOptions.vsFindOptionsKeepModifiedDocumentsOpen | (int)vsFindOptions.vsFindOptionsMatchCase, "\"" + newKey + "\"", vsFindTarget.vsFindTargetCurrentProject);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Key edit failed!\nYou cannot rename a key to existing key.", "JSONEx");
+                                return;
                             }
                         }
                         else //if there was a key and it had a value
-                        {//TODO check if replacing in whole solution replaces in .json too, if so fix it
+                        {
                             if (langFile.ContainsKey(oldKey)) //extra precaucion
                             {
-                                //TODO do not allow key replacement to existing key
-                                langFile.Remove(oldKey); //remove old key
-                                langFile.Add(newKey, newValue); //create new key and value in json
-                                if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                                if ((string.Compare(oldKey, newKey) == 0) || ((string.Compare(oldKey, newKey) != 0) && !langFile.ContainsKey(newKey)))
                                 {
-
-                                    //TODO Implement Replace(oldKey, newKey) in the whole solution
-                                    DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-
-                                    var find = (EnvDTE.Find)dte.Find;
-
-                                    find.FindReplace(vsFindAction.vsFindActionReplaceAll, oldKey, (int)vsFindOptions.vsFindOptionsKeepModifiedDocumentsOpen | (int)vsFindOptions.vsFindOptionsMatchCase, newKey, vsFindTarget.vsFindTargetSolution);
-
+                                    langFile.Remove(oldKey); //remove old key
+                                    langFile.Add(newKey, newValue); //create new key and value in json
+                                    Save();
+                                    if (string.Compare(oldKey, newKey) != 0) //if key has changed
+                                    {
+                                        DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+                                        dte.Find.FindReplace(vsFindAction.vsFindActionReplaceAll, "\"" + oldKey + "\"", (int)vsFindOptions.vsFindOptionsKeepModifiedDocumentsOpen | (int)vsFindOptions.vsFindOptionsMatchCase, "\"" + newKey + "\"", vsFindTarget.vsFindTargetCurrentProject);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Key edit failed!\nYou cannot rename a key to existing key.", "JSONEx");
+                                    return;
                                 }
                             }
                         }
                     }
-                    Save();
                 }
             });
         }
@@ -151,7 +169,7 @@ namespace JSONExtension
         private void ShowMessageAndStopExecution(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            MessageBox.Show(message, "JSON Extension");
+            MessageBox.Show(message, "JSONEx");
             return;
         }
     }
@@ -161,5 +179,3 @@ namespace JSONExtension
         public string jsonPath;
     }
 }
-
-//TODO add msg if key edit failed
