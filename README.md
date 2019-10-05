@@ -1,4 +1,6 @@
-JSONExtension
+JSONEx
+
+**Find install-ready builds here: https://github.com/RARgames/JSONExtension/releases**
 
 IMPORTANT: How to create project for the first time:
 1. Get missing references by installing them using NuGet Package Manager
@@ -12,6 +14,3 @@ IMPORTANT: How to create project for the first time:
 ```
 
 Test project at: JSONExtension/test
-
-
-Find install-ready builds here: https://github.com/RARgames/JSONExtension/releases
