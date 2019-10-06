@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using Task = System.Threading.Tasks.Task;
 
 namespace JSONExtension
@@ -99,6 +101,29 @@ namespace JSONExtension
                 jsonPathSet = true;
             }
 
+            JSchema schemanet = JSchema.Parse(@"
+            {
+                'type': 'object',
+                'required': ['en'],
+                'properties': {
+                'en': {
+                    'type': 'object',
+                    'patternProperties': {
+                     '^[a-zA-Z0-9-_]*$': { 'type':'string'}
+                     }
+                 }
+               }
+             }
+            ");
+
+            JObject jsonToVerify = JObject.Parse(File.ReadAllText(jsonFilePath));
+            bool valid = jsonToVerify.IsValid(schemanet);
+            if (!valid)
+            {
+                MessageBox.Show("Error selecting JSON file\nFile does not mathc schema.", "JSONEx");
+                return;
+            }
+
             string projectPath = JSONExtensionPackage.settings.projectPath; //get project path from settings
 
             if (projectPath != null && jsonPathSet) //if project path exists and jsonPathSet flag is true, save settingsJSON and show SUCCESS msg
@@ -115,7 +140,7 @@ namespace JSONExtension
             }
             else //otherwise show ERROR msg
             {
-                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON path.", "JSONEx");
+                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON.", "JSONEx");
             }
         }
     }

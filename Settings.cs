@@ -59,27 +59,20 @@ namespace JSONExtension
                     {
                         string json = File.ReadAllText(path);
                         SettingsJSON settingsJSON = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using JsonCOnvert to deserialize and check jsonPath
-                        if (settingsJSON.jsonPath.EndsWith(".json")) //if jsonPath ends with .json, read language file and transform en localization into langFile dictionary
-                        {
-                            jsonPath = settingsJSON.jsonPath;
-                            string temp = File.ReadAllText(jsonPath);
+                        jsonPath = settingsJSON.jsonPath;
+                        string temp = File.ReadAllText(jsonPath);
 
-                            data = (JObject)JsonConvert.DeserializeObject(temp);
-                            var langEN = data["en"].Value<JObject>().ToString();
-                            langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
+                        data = (JObject)JsonConvert.DeserializeObject(temp);
+                        var langEN = data["en"].Value<JObject>().ToString();
+                        langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
 
-                            isLoaded = true;
-                        }
-                        else if (verbose)
-                        {
-#pragma warning disable
-                            ShowMessageAndStopExecution("JSON Path not valid!\nMake sure to set it using JSONEx settings. The file should end with .json and all keys/values should be in en array.");
-#pragma warning restore
-                        }
+                        isLoaded = true;
                     }
                     else if (verbose)
                     {
+#pragma warning disable
                         ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSONEx settings in Tools menu.");
+#pragma warning enable
                     }
                 }
                 else if (verbose)

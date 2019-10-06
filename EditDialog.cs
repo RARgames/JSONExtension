@@ -142,5 +142,3 @@ namespace JSONExtension
         }
     }
 }
-
-//TODO check for correctness of given json
