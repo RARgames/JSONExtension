@@ -5,8 +5,11 @@ JSONEx
 
 Main functionality:
     Open settings at Tools/JSON Extension Settings and select JSON path - language.json - with a structure declared in the file (especially "en" table)
+	
     When you hover over any key you will see it's value in quick info
+	
     If you want to edit, right click on the key and open JSON edit window. If you change the value/key, it will be automatically changed in language.json and every occurrence of old key will be replaced with new key in the whole solution.
+	
     If the key is not existent, it will ask you to create new key
 
 
