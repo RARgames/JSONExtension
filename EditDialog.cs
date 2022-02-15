@@ -118,25 +118,25 @@ namespace JSONExtension
             string text = activePoint.CreateEditPoint().GetLines(activePoint.Line, activePoint.Line + 1);
 
             string key;
-            var textArray = text.Split('"', '"');
+            string[] textArray = text.Split('"', '"');
             if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1])) //if there is char between "" set key to it
             {
                 key = textArray[1];
 
                 if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
                 {
-                    var form = new EditWindow(key, JSONExtensionPackage.settings.langFile[key]);
+                    EditWindow form = new EditWindow(key, JSONExtensionPackage.settings.langFile[key]);
                     form.ShowDialog();
                 }
                 else
                 {
-                    var form = new EditWindow(key, "", true);
+                    EditWindow form = new EditWindow(key, "", true);
                     form.ShowDialog();
                 }
             }
             else
             {
-                var form = new EditWindow("", "", true);
+                EditWindow form = new EditWindow("", "", true);
                 form.ShowDialog();
             }
         }

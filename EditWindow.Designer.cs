@@ -35,9 +35,9 @@
             this.labelPrevValue = new System.Windows.Forms.Label();
             this.labelKey = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.acceptButton = new System.Windows.Forms.Button();
-            this.newKeyText = new System.Windows.Forms.TextBox();
             this.labelNewKey = new System.Windows.Forms.Label();
+            this.newKeyText = new System.Windows.Forms.TextBox();
+            this.acceptButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,8 +120,8 @@
             this.tableLayoutPanel1.Controls.Add(this.prevkeyText, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.prevValueText, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.newValueText, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.acceptButton, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.newKeyText, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.acceptButton, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -135,6 +135,26 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 178);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
+            // labelNewKey
+            // 
+            this.labelNewKey.AutoSize = true;
+            this.labelNewKey.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelNewKey.Location = new System.Drawing.Point(3, 19);
+            this.labelNewKey.Name = "labelNewKey";
+            this.labelNewKey.Padding = new System.Windows.Forms.Padding(2);
+            this.labelNewKey.Size = new System.Drawing.Size(113, 30);
+            this.labelNewKey.TabIndex = 7;
+            this.labelNewKey.Text = "New Key:";
+            // 
+            // newKeyText
+            // 
+            this.newKeyText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newKeyText.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newKeyText.Location = new System.Drawing.Point(122, 22);
+            this.newKeyText.Name = "newKeyText";
+            this.newKeyText.Size = new System.Drawing.Size(351, 24);
+            this.newKeyText.TabIndex = 2;
+            // 
             // acceptButton
             // 
             this.acceptButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -146,26 +166,6 @@
             this.acceptButton.Text = "Apply";
             this.acceptButton.UseVisualStyleBackColor = true;
             this.acceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
-            // 
-            // newKeyText
-            // 
-            this.newKeyText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newKeyText.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newKeyText.Location = new System.Drawing.Point(122, 22);
-            this.newKeyText.Name = "newKeyText";
-            this.newKeyText.Size = new System.Drawing.Size(351, 24);
-            this.newKeyText.TabIndex = 2;
-            // 
-            // labelNewKey
-            // 
-            this.labelNewKey.AutoSize = true;
-            this.labelNewKey.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelNewKey.Location = new System.Drawing.Point(3, 19);
-            this.labelNewKey.Name = "labelNewKey";
-            this.labelNewKey.Padding = new System.Windows.Forms.Padding(2);
-            this.labelNewKey.Size = new System.Drawing.Size(113, 30);
-            this.labelNewKey.TabIndex = 7;
-            this.labelNewKey.Text = "New Key:";
             // 
             // EditWindow
             // 

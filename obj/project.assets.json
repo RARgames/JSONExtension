@@ -9683,11 +9683,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\RAR\\Desktop\\JSONExtension\\JSONExtension.csproj",
+      "projectUniqueName": "C:\\DATA\\Projects\\JSONExtension\\JSONExtension.csproj",
       "projectName": "JSONExtension",
-      "projectPath": "C:\\Users\\RAR\\Desktop\\JSONExtension\\JSONExtension.csproj",
+      "projectPath": "C:\\DATA\\Projects\\JSONExtension\\JSONExtension.csproj",
       "packagesPath": "C:\\Users\\RAR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\RAR\\Desktop\\JSONExtension\\obj\\",
+      "outputPath": "C:\\DATA\\Projects\\JSONExtension\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using Task = System.Threading.Tasks.Task;
 
 namespace JSONExtension
@@ -92,56 +88,8 @@ namespace JSONExtension
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            string jsonFilePath = string.Empty;
-            OpenFileDialog openFileDialog = new OpenFileDialog(); //open file explorer
-            bool jsonPathSet = false;
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if OK clicked save path and set flag
-            {
-                jsonFilePath = openFileDialog.FileName;
-                jsonPathSet = true;
-            }
-
-            JSchema schemanet = JSchema.Parse(@"
-            {
-                'type': 'object',
-                'required': ['en'],
-                'properties': {
-                'en': {
-                    'type': 'object',
-                    'patternProperties': {
-                     '^[a-zA-Z0-9-_]*$': { 'type':'string'}
-                     }
-                 }
-               }
-             }
-            ");
-
-            JObject jsonToVerify = JObject.Parse(File.ReadAllText(jsonFilePath));
-            bool valid = jsonToVerify.IsValid(schemanet);
-            if (!valid)
-            {
-                MessageBox.Show("Error selecting JSON file\nFile does not mathc schema.", "JSONEx");
-                return;
-            }
-
-            string projectPath = JSONExtensionPackage.settings.projectPath; //get project path from settings
-
-            if (projectPath != null && jsonPathSet) //if project path exists and jsonPathSet flag is true, save settingsJSON and show SUCCESS msg
-            {
-                SettingsJSON settingsJSON = new SettingsJSON
-                {
-                    jsonPath = jsonFilePath
-                };
-                File.WriteAllText(Path.Combine(projectPath, ".JSONExtensionSettings"), JsonConvert.SerializeObject(settingsJSON));
-
-                JSONExtensionPackage.settings.LoadLangFile(true); //force reload lang file
-
-                MessageBox.Show("JSON Path set successfully\nProject Path: " + projectPath + "\nJSON Path: " + jsonFilePath, "JSONEx");
-            }
-            else //otherwise show ERROR msg
-            {
-                MessageBox.Show("Error selecting JSON file\n1. Open project for which you want to set JSON file.\n2. Select valid JSON.", "JSONEx");
-            }
+            SettingsWindow form = new SettingsWindow(JSONExtensionPackage.settings.languageCode, JSONExtensionPackage.settings.languagePath);
+            form.ShowDialog();
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -16,9 +17,10 @@ namespace JSONExtension
         public string projectPath;
         public Dictionary<string, string> langFile; //contains keys and values of language file
         public bool isLoaded = false; //flag after loading langFile set to true
+        public string languagePath;
+        public string languageCode;
 
         private JObject data;
-        private string jsonPath;
 
         public void Initialize() //called at the start by JSONExtensionPackage
         {
@@ -38,7 +40,7 @@ namespace JSONExtension
                 bool isOpen = (bool)open; //if the solution open
                 if (isOpen)
                 {
-                    solution.GetSolutionInfo(out string dir, out string file, out string ops);  //dir contains the solution's directory path
+                    solution.GetSolutionInfo(out string dir, out _, out _);  //dir contains the solution's directory path
                     return dir;
                 }
             }
@@ -47,38 +49,45 @@ namespace JSONExtension
 
         public void LoadLangFile(bool forceReload = false, bool verbose = false) //load language file
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (forceReload)
                 isLoaded = false;
-            if (!isLoaded) //if not loaded
-            {
-                if (!string.IsNullOrEmpty(projectPath)) //check if valid project path
-                {
-                    string path = Path.Combine(projectPath, ".JSONExtensionSettings");
+            if (isLoaded)
+                return;
 
-                    if (File.Exists(path)) //if file exists at this path
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                string settingsPath = Path.Combine(projectPath, ".JSONExSettings");
+
+                if (File.Exists(settingsPath))
+                {
+                    string json = File.ReadAllText(settingsPath);
+                    try
                     {
-                        string json = File.ReadAllText(path);
-                        SettingsJSON settingsJSON = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using JsonCOnvert to deserialize and check jsonPath
-                        jsonPath = settingsJSON.jsonPath;
-                        string temp = File.ReadAllText(jsonPath);
+                        SettingsJSON settingsJSON = JsonConvert.DeserializeObject<SettingsJSON>(json); //Using JsonConvert to deserialize and check jsonPath
+                        languagePath = settingsJSON.languagePath;
+                        languageCode = settingsJSON.languageCode;
+                        string temp = File.ReadAllText(languagePath);
 
                         data = (JObject)JsonConvert.DeserializeObject(temp);
-                        var langEN = data["en"].Value<JObject>().ToString();
-                        langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(langEN);
+                        string lang = data[languageCode].Value<JObject>().ToString();
+                        langFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(lang);
 
                         isLoaded = true;
                     }
-                    else if (verbose)
+                    catch (Exception ex)
                     {
-#pragma warning disable
-                        ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSONEx settings in Tools menu.");
-#pragma warning enable
+                        ShowMessageAndStopExecution($"Invalid .JSONExSettings file: {ex.Message}");
                     }
                 }
                 else if (verbose)
                 {
-                    ShowMessageAndStopExecution("Error getting project path!\nOpen the project first.");
+                    ShowMessageAndStopExecution("Path not set!\nMake sure to set it using JSONEx settings in Tools menu.");
                 }
+            }
+            else if (verbose)
+            {
+                ShowMessageAndStopExecution("Error getting project path!\nOpen the project first.");
             }
         }
 
@@ -151,12 +160,11 @@ namespace JSONExtension
         public void Save()
         {
             if (!isLoaded)
-            {
                 return;
-            }
-            data["en"] = JToken.FromObject(langFile);
+
+            data[languageCode] = JToken.FromObject(langFile);
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-            File.WriteAllText(jsonPath, json);
+            File.WriteAllText(languagePath, json);
         }
 
         private void ShowMessageAndStopExecution(string message)
@@ -169,6 +177,7 @@ namespace JSONExtension
 
     public class SettingsJSON //structure for JSON serialization
     {
-        public string jsonPath;
+        public string languagePath;
+        public string languageCode;
     }
 }

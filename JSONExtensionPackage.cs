@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -54,8 +56,22 @@ namespace JSONExtension
             await OpenSettings.InitializeAsync(this);
             await EditDialog.InitializeAsync(this);
             settings.Initialize(); //initialize instance of settings for later use
+
+            DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE; //Monitor file language file changes
+            this._documentEvents = dte.Events.DocumentEvents;
+            this._documentEvents.DocumentSaved += new _dispDocumentEvents_DocumentSavedEventHandler(this.OnDocumentSaved);
         }
 
+        private void OnDocumentSaved(Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (document.FullName == settings.languagePath)
+            {
+                settings.LoadLangFile(true);
+            }
+        }
+
+        private DocumentEvents _documentEvents;
         #endregion
     }
 }

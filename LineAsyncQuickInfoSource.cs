@@ -2,6 +2,9 @@
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
+using Microsoft.VisualStudio.Text.Operations;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,43 +22,58 @@ namespace JSONExtension
         // This is called on a background thread.
         public Task<QuickInfoItem> GetQuickInfoItemAsync(IAsyncQuickInfoSession session, CancellationToken cancellationToken)
         {
-            var triggerPoint = session.GetTriggerPoint(_textBuffer.CurrentSnapshot);
+            SnapshotPoint? triggerPoint = session.GetTriggerPoint(_textBuffer.CurrentSnapshot);
 
             if (triggerPoint != null)
             {
-                var line = triggerPoint.Value.GetContainingLine();
-                var lineSpan = _textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
-                var text = triggerPoint.Value.GetContainingLine().GetText(); //get whole line of current cursor pos
+                ITextSnapshotLine line = triggerPoint.Value.GetContainingLine();
+                ITrackingSpan lineSpan = _textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
 
-                string key;
-                var textArray = text.Split('"', '"');
-                if (textArray.Length >= 2 && !string.IsNullOrEmpty(textArray[1])) //if there is char between "" set key to it
-                {
-                    key = textArray[1];
-                }
-                else
+                string text = triggerPoint.Value.GetContainingLine().GetText(); //get whole line of current cursor pos
+                string[] textArray = text.Split('"');
+                int partCount = textArray.Length / 2;
+                
+                if (partCount <= 0)
                 {
                     return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
                 }
-#pragma warning disable
-                JSONExtensionPackage.settings.LoadLangFile(); //if not loaded try to load language file into settings
-#pragma warning restore
                 if (!JSONExtensionPackage.settings.isLoaded) //if langFile not loaded show ERROR msg in Quick Info
                 {
                     return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Keyword, "JSONEx: Not Loaded! If the problem persist add JSON Path in Tools/JSONEx Settings")))));
                 }
 
-                if (JSONExtensionPackage.settings.langFile.ContainsKey(key)) //if langFile contains key, get it's value 
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < partCount; i++)
                 {
-                    return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, JSONExtensionPackage.settings.langFile[key]))))); //add key's value to quick info
+                    string key = textArray[2 * i + 1];
+                    if (key.Contains(" "))
+                    {
+                        continue;
+                    }
+                    string value = "";
+                    if (JSONExtensionPackage.settings.langFile.ContainsKey(key))
+                    {
+                        value = JSONExtensionPackage.settings.langFile[key];
+                    }
+                    if (partCount == 1)
+                    {
+                        sb.Append(value);
+                    }
+                    else if (i == partCount - 1)
+                    {
+                        sb.Append($"{key}: {value}");
+                    }
+                    else
+                    {
+                        sb.Append($"{key}: {value}\n");
+                    }
                 }
-                else
-                {
-                    return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
-                }
+
+                return Task.FromResult(new QuickInfoItem(lineSpan, new ContainerElement(ContainerElementStyle.Stacked, new ClassifiedTextElement(new ClassifiedTextRun(PredefinedClassificationTypeNames.Comment, sb.ToString())))));
             }
             return Task.FromResult<QuickInfoItem>(null); //do not add anything to Quick Info
         }
+
         public void Dispose()
         {
             // This provider does not perform any cleanup.
