@@ -83,3 +83,4 @@ C:\DATA\Projects\JSONExtension\obj\Release\JSONExtension.latest.pkgdef
 C:\DATA\Projects\JSONExtension\obj\Release\extension.vsixmanifest
 C:\DATA\Projects\JSONExtension\obj\Release\files.json
 C:\DATA\Projects\JSONExtension\obj\Release\createTemplateManifests.cache
+C:\DATA\Projects\JSONExtension\obj\Release\_EmptyResource.resources.original

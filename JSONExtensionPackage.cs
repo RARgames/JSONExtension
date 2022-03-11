@@ -65,6 +65,7 @@ namespace JSONExtension
         private void OnDocumentSaved(Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             if (document.FullName == settings.languagePath)
             {
                 settings.LoadLangFile(true);
