@@ -29,6 +29,11 @@
           "net472": {
             "projectReferences": {}
           }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -36,26 +41,29 @@
           "dependencies": {
             "Microsoft.CodeAnalysis.EditorFeatures.Text": {
               "target": "Package",
-              "version": "[3.2.1, )"
+              "version": "[4.8.0, )"
             },
             "Microsoft.VSSDK.BuildTools": {
               "target": "Package",
-              "version": "[16.2.3073, )"
+              "version": "[17.9.3168, )"
             },
             "Microsoft.VisualStudio.SDK": {
               "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[16.0.200, )"
+              "version": "[17.9.37000, )"
             },
             "Newtonsoft.Json.Schema": {
               "target": "Package",
-              "version": "[3.0.11, )"
+              "version": "[3.0.15, )"
             }
           }
         }
       },
       "runtimes": {
         "win": {
+          "#import": []
+        },
+        "win-arm64": {
           "#import": []
         },
         "win-x64": {

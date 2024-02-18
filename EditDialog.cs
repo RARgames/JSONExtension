@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EnvDTE;
+﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Task = System.Threading.Tasks.Task;
-using Microsoft.VisualStudio.Text;
+using System;
+using System.ComponentModel.Design;
 using System.Windows.Forms;
-using System.Text;
-using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.Package;
-using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.Text.Formatting;
-using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Editor;
+using Task = System.Threading.Tasks.Task;
 
 namespace JSONExtension
 {
