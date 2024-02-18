@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\DATA\\Projects\\JSONExtension\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|C:\\DATA\\Projects\\JSONExtension\\source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}",
+      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|c:\\data\\projects\\jsonextension\\source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}",
       "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|c:\\data\\projects\\jsonextension\\settingswindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|C:\\DATA\\Projects\\JSONExtension\\settingswindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:settingswindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -53,8 +53,7 @@
               "ToolTip": "C:\\DATA\\Projects\\JSONExtension\\SettingsWindow.cs [Design]",
               "RelativeToolTip": "SettingsWindow.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-18T13:53:32.915Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-02-18T13:53:32.915Z"
             },
             {
               "$type": "Document",
