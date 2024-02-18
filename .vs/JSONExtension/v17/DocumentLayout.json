@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\DATA\\Projects\\JSONExtension\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|C:\\DATA\\Projects\\JSONExtension\\source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}",
+      "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|c:\\data\\projects\\jsonextension\\settingswindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:settingswindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|C:\\DATA\\Projects\\JSONExtension\\editdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:editdialog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|C:\\DATA\\Projects\\JSONExtension\\source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}",
-      "RelativeMoniker": "D:0:0:{98351D21-66D1-447C-B536-54FA90EB01D9}|JSONExtension.csproj|solutionrelative:source.extension.vsixmanifest||{2868F8ED-DE25-439D-9F59-AD52458E9328}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,11 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "SettingsWindow.cs [Design]",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\SettingsWindow.cs",
               "RelativeDocumentMoniker": "SettingsWindow.cs",
@@ -58,19 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Settings.cs",
-              "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\Settings.cs",
-              "RelativeDocumentMoniker": "Settings.cs",
-              "ToolTip": "C:\\DATA\\Projects\\JSONExtension\\Settings.cs",
-              "RelativeToolTip": "Settings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-18T13:53:26.369Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "OpenSettings.cs",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\OpenSettings.cs",
               "RelativeDocumentMoniker": "OpenSettings.cs",
@@ -82,7 +70,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "LineAsyncQuickInfoSourceProvider.cs",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\LineAsyncQuickInfoSourceProvider.cs",
               "RelativeDocumentMoniker": "LineAsyncQuickInfoSourceProvider.cs",
@@ -94,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "LineAsyncQuickInfoSource.cs",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\LineAsyncQuickInfoSource.cs",
               "RelativeDocumentMoniker": "LineAsyncQuickInfoSource.cs",
@@ -106,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "JSONExtensionPackage.cs",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\JSONExtensionPackage.cs",
               "RelativeDocumentMoniker": "JSONExtensionPackage.cs",
@@ -118,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "EditDialog.cs",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\EditDialog.cs",
               "RelativeDocumentMoniker": "EditDialog.cs",
@@ -130,14 +118,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "source.extension.vsixmanifest [Design]",
               "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\source.extension.vsixmanifest",
               "RelativeDocumentMoniker": "source.extension.vsixmanifest",
               "ToolTip": "C:\\DATA\\Projects\\JSONExtension\\source.extension.vsixmanifest [Design]",
               "RelativeToolTip": "source.extension.vsixmanifest [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003464|",
-              "WhenOpened": "2024-02-18T13:52:13.279Z"
+              "WhenOpened": "2024-02-18T13:52:13.279Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "C:\\DATA\\Projects\\JSONExtension\\Settings.cs",
+              "RelativeDocumentMoniker": "Settings.cs",
+              "ToolTip": "C:\\DATA\\Projects\\JSONExtension\\Settings.cs",
+              "RelativeToolTip": "Settings.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-18T13:53:26.369Z"
             }
           ]
         }
